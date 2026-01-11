@@ -1,0 +1,224 @@
+﻿<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>VizaGram</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+
+<body class="theme-dark">
+  <div id="authScreen" class="screen">
+    <div class="authWrap">
+      <div class="authCard">
+        <div class="authTop">
+          <div>
+            <div class="brand">VizaGram</div>
+            <div class="muted">вход/регистрация • чаты • профиль</div>
+          </div>
+          <button id="themeBtnAuth" class="btn ghost" type="button">Тема</button>
+        </div>
+
+        <div id="welcomePanel">
+          <h1 class="welcomeTitle">Добро пожаловать в VizaGram</h1>
+          <div class="muted" style="margin-bottom:14px;">Выбери действие ниже</div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <button id="btnGoLogin" class="btn" type="button">Войти</button>
+            <button id="btnGoRegister" class="btn primary" type="button">Зарегистрироваться</button>
+          </div>
+        </div>
+
+        <div id="loginPanel" class="panel hidden">
+          <div id="savedEmpty" class="savedBox">
+            <div class="muted">Сохранённых аккаунтов нет</div>
+          </div>
+
+          <div id="savedOne" class="savedBox hidden">
+            <div class="savedRow">
+              <div id="savedAvatar" class="avatar">A</div>
+              <div class="savedInfo">
+                <div id="savedName" class="savedName">—</div>
+                <div id="savedUser" class="muted">@—</div>
+              </div>
+              <div class="savedBtns">
+                <button id="btnUseSaved" class="btn" type="button">Выбрать</button>
+                <button id="btnDeleteSaved" class="btn danger soft" type="button">Удалить</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="field">
+            <label>Username</label>
+            <input id="loginUser" placeholder="@username" autocomplete="username" />
+          </div>
+
+          <div class="field">
+            <label>Пароль</label>
+            <input id="loginPass" type="password" placeholder="Введите пароль" autocomplete="current-password" />
+          </div>
+
+          <div id="adminPassWrap" class="field hidden">
+            <label>Админ пароль</label>
+            <input id="loginAdminPass" type="password" placeholder="Только для @admin" autocomplete="off" />
+          </div>
+
+          <div style="display:flex; gap:10px; margin-top:10px;">
+            <button id="btnBackFromLogin" class="btn ghost" type="button">← Назад</button>
+            <button id="btnLogin" class="btn primary" type="button" style="flex:1;">Войти</button>
+          </div>
+        </div>
+
+        <div id="registerPanel" class="panel hidden">
+          <div class="grid2">
+            <div class="field">
+              <label>Имя</label>
+              <input id="regName" placeholder="Иван" />
+            </div>
+            <div class="field">
+              <label>Фамилия (необязательно)</label>
+              <input id="regSurname" placeholder="Иванов" />
+            </div>
+          </div>
+
+          <div class="field">
+            <label>Username</label>
+            <input id="regUser" placeholder="username" />
+          </div>
+
+          <div id="regAdminPassWrap" class="field hidden">
+            <label>Админ пароль (только для @admin)</label>
+            <input id="regAdminPass" type="password" placeholder="Введите админ пароль" />
+          </div>
+
+          <div class="field">
+            <label>Придумайте пароль от аккаунта</label>
+            <input id="regPass" type="password" placeholder="Минимум 6 символов" autocomplete="new-password" />
+          </div>
+
+          <div class="field">
+            <label>Подтвердите пароль</label>
+            <input id="regPass2" type="password" placeholder="Повторите пароль" autocomplete="new-password" />
+          </div>
+
+          <div class="field">
+            <label>О себе</label>
+            <textarea id="regAbout" placeholder="Коротко о себе..."></textarea>
+          </div>
+
+          <div style="display:flex; gap:10px; margin-top:10px;">
+            <button id="btnBackFromRegister" class="btn ghost" type="button">← Назад</button>
+            <button id="btnRegister" class="btn primary" type="button" style="flex:1;">Зарегистрироваться</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="appScreen" class="screen hidden">
+    <div class="layout">
+      <aside class="left">
+        <div class="meCard">
+          <div id="meAvatar" class="avatar big">A</div>
+          <div class="meInfo">
+            <div id="meName" class="meName">—</div>
+            <div id="meUser" class="muted">@—</div>
+          </div>
+          <button id="btnProfile" class="btn" type="button">Профиль</button>
+          <button id="btnAdmin" class="btn hidden" type="button">Админ панель</button>
+        </div>
+
+        <div class="searchBox">
+          <input id="searchInput" placeholder="Поиск: @username" />
+          <button id="btnSearch" class="btn" type="button">Найти</button>
+        </div>
+        <div id="searchResults" class="searchResults hidden"></div>
+
+        <div class="sectionTitle">Чаты</div>
+        <div id="chats" class="chats"></div>
+      </aside>
+
+      <main class="right">
+        <div class="chatHeader">
+          <button id="btnMobileBack" class="btn ghost mobileBackBtn" type="button">←</button>
+
+          <div id="chatAvatar" class="avatar">?</div>
+          <div class="chatHeaderInfo">
+            <div id="chatTitle" class="chatHeaderTitle">Выбери чат</div>
+            <div id="chatStatus" class="muted">—</div>
+          </div>
+        </div>
+
+        <div id="messages" class="messages"></div>
+
+        <form id="msgForm" class="msgForm">
+          <input id="msgInput" placeholder="Введите сообщение" />
+          <button id="btnSend" type="button" class="btn primary">Отправить</button>
+        </form>
+      </main>
+    </div>
+  </div>
+
+  <!-- PROFILE MODAL -->
+  <div id="profileModal" class="modal hidden">
+    <div class="modalCard">
+      <div class="modalTop">
+        <div class="modalTitle">Профиль</div>
+        <button id="btnCloseProfile" class="btn ghost" type="button">✕</button>
+      </div>
+
+      <div class="grid2">
+        <div class="field">
+          <label>Имя</label>
+          <input id="proName" />
+        </div>
+        <div class="field">
+          <label>Фамилия</label>
+          <input id="proSurname" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Username</label>
+        <input id="proUser" disabled />
+      </div>
+
+      <div class="field">
+        <label>О себе</label>
+        <textarea id="proAbout"></textarea>
+      </div>
+
+      <div class="row gap">
+        <button id="themeDarkBtn" class="btn" type="button">Dark</button>
+        <button id="themeLightBtn" class="btn" type="button">Light</button>
+      </div>
+
+      <div class="row gap" style="margin-top:10px;">
+        <button id="btnChangePass" class="btn" type="button" style="width:100%;">Изменить пароль</button>
+      </div>
+
+      <div class="row gap" style="margin-top:10px;">
+        <button id="btnSaveProfile" class="btn primary" type="button">Сохранить</button>
+        <button id="btnLogout" class="btn danger" type="button">Выход</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADMIN MODAL -->
+  <div id="adminModal" class="modal hidden">
+    <div class="modalCard">
+      <div class="modalTop">
+        <div class="modalTitle">Админ панель</div>
+        <button id="btnCloseAdmin" class="btn ghost" type="button">✕</button>
+      </div>
+
+      <div class="field">
+        <label>Пользователи</label>
+        <div id="adminUsers" class="adminUsers"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/app.js"></script>
+</body>
+</html>
